@@ -1,0 +1,14 @@
+# requirements.txt
+Flask
+Flask-Cors
+python-magic
+pandas
+openpyxl
+xlrd
+pdfplumber
+python-docx
+pytesseract
+Pillow
+thefuzz
+python-Levenshtein
+werkzeug

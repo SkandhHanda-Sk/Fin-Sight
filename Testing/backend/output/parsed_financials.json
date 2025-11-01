@@ -1,0 +1,62 @@
+[
+    {
+        "year": 2021,
+        "period_type": "annual",
+        "total_net_sales": 365817000000.0,
+        "gross_margin": 152836000000.0,
+        "operating_income": 108949000000.0,
+        "net_income": 94680000000.0,
+        "cash_from_operating": 104038000000.0,
+        "cash_from_investing": -14545000000.0,
+        "cash_from_financing": -93353000000.0,
+        "cash_at_end_of_period": 35929000000.0
+    },
+    {
+        "year": 2021,
+        "period_type": "quarter",
+        "total_net_sales": 83360000000.0,
+        "gross_margin": 35174000000.0,
+        "operating_income": 23786000000.0,
+        "net_income": 20551000000.0
+    },
+    {
+        "year": 2021,
+        "period_type": "snapshot",
+        "cash_and_cash_equivalents": 34940000000.0,
+        "total_current_assets": 134836000000.0,
+        "total_assets": 351002000000.0,
+        "total_current_liabilities": 125481000000.0,
+        "total_liabilities": 287912000000.0,
+        "total_shareholders_equity": 63090000000.0
+    },
+    {
+        "year": 2022,
+        "period_type": "annual",
+        "total_net_sales": 394328000000.0,
+        "gross_margin": 170782000000.0,
+        "operating_income": 119437000000.0,
+        "net_income": 99803000000.0,
+        "cash_from_operating": 122151000000.0,
+        "cash_from_investing": -22354000000.0,
+        "cash_from_financing": -110749000000.0,
+        "cash_at_end_of_period": 24977000000.0
+    },
+    {
+        "year": 2022,
+        "period_type": "quarter",
+        "total_net_sales": 90146000000.0,
+        "gross_margin": 38095000000.0,
+        "operating_income": 24894000000.0,
+        "net_income": 20721000000.0
+    },
+    {
+        "year": 2022,
+        "period_type": "snapshot",
+        "cash_and_cash_equivalents": 23646000000.0,
+        "total_current_assets": 135405000000.0,
+        "total_assets": 352755000000.0,
+        "total_current_liabilities": 153982000000.0,
+        "total_liabilities": 302083000000.0,
+        "total_shareholders_equity": 50672000000.0
+    }
+]

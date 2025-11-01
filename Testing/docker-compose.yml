@@ -1,0 +1,25 @@
+# docker-compose.yml (Full Version with Frontend)
+services:
+  backend:
+    build:
+      context: . # Build from the Dockerfile in the 'Testing' directory
+      dockerfile: Dockerfile # Explicitly name the Dockerfile
+    container_name: finsight-backend
+    volumes:
+      - ./backend:/app
+    ports:
+      - "5001:5001"
+
+  frontend:
+    build:
+      context: ./frontend # The build context is the 'frontend' folder
+      dockerfile: Dockerfile # Use the Dockerfile inside the 'frontend' folder
+    container_name: finsight-frontend
+    volumes:
+      # Mount the src folder for live-reloading
+      - ./frontend/src:/app/src
+    ports:
+      - "3000:3000"
+    # This ensures the backend is started before the frontend
+    depends_on:
+      - backend
