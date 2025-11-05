@@ -1,4 +1,4 @@
-# docker-compose.yml (Full Version with Frontend)
+# docker-compose.yml
 services:
   backend:
     build:
@@ -19,7 +19,8 @@ services:
       # Mount the src folder for live-reloading
       - ./frontend/src:/app/src
     ports:
-      - "3000:3000"
+      # Map port 3000 on your machine to port 5173 inside the container
+      - "3000:5173"
     # This ensures the backend is started before the frontend
     depends_on:
       - backend

@@ -1,6 +1,6 @@
-# Testing/frontend/Dockerfile
-# Use an official Node.js runtime as a parent image
-FROM node:18-alpine
+# Testing/frontend/Dockerfile (Corrected Version)
+# Use the current Long-Term Support (LTS) version of Node.js
+FROM node:lts-alpine
 
 # Set the working directory in the container
 WORKDIR /app
@@ -14,8 +14,8 @@ RUN npm install
 # Copy the rest of the application code
 COPY . .
 
-# Make port 3000 available to the world outside this container
-EXPOSE 3000
+# Make port 5173 available (the default Vite port)
+EXPOSE 5173
 
-# Command to run the app
-CMD ["npm", "start"]
+# Command to run the Vite development server
+CMD ["npm", "run", "dev"]
