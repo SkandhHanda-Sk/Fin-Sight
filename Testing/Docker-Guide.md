@@ -1,6 +1,5 @@
 
-This guide explains the purpose of the Docker setup and provides clear, step-by-step instructions for any developer who wants to get the project running. It assumes you are using the improved `docker-compose.yml` that manages both the frontend and backend services.
-
+This guide explains the purpose of the Docker setup and provides clear, step-by-step instructions for any developer who wants to get the project running.
 ---
 
 # Docker Guide for Fin-Sight
@@ -22,42 +21,10 @@ Before you begin, ensure you have the following installed on your system:
 
 *   [Docker Desktop](https://www.docker.com/products/docker-desktop/) (which includes Docker Engine and Docker Compose).
 
-## One-Time Setup
-
-For the full frontend and backend setup to work, you need to have a `Dockerfile` inside the `frontend` directory.
-
-1.  **Create `frontend/Dockerfile`**:
-    Create a new file at `Testing/frontend/Dockerfile` and add the following content:
-
-    ```dockerfile
-    # Testing/frontend/Dockerfile
-
-    # Use an official Node.js runtime as a parent image
-    FROM node:18-alpine
-
-    # Set the working directory in the container
-    WORKDIR /app
-
-    # Copy package.json and package-lock.json
-    # This leverages Docker's layer caching
-    COPY package*.json ./
-
-    # Install app dependencies
-    RUN npm install
-
-    # Copy the rest of the application code
-    COPY . .
-
-    # Make port 3000 available to the world outside this container
-    EXPOSE 3000
-
-    # Command to run the app in development mode
-    CMD ["npm", "start"]
-    ```
-
 ## Step-by-Step Instructions
 
 All commands should be run from the `Fin-Sight/Testing/` directory in your terminal.
+Use `cd Testing`
 
 ### Step 1: Build the Docker Images
 
@@ -69,15 +36,20 @@ docker-compose build
 
 ### Step 2: Start the Services
 
-This command starts the containers for both services in "detached" mode (`-d`), meaning they will run in the background.
+This command starts the containers for both services in "detached" mode (`-d`), meaning they will run in the background. Detach mode is for production purposes not development.
 
 ```bash
 docker-compose up -d
 ```
 
+This is for development purposes
+```bash
+docker-compose up
+```
+
 ### Step 3: Verify the Containers are Running
 
-Check the status of your running containers.
+Check the status of your running containers in separate terminal.
 
 ```bash
 docker-compose ps
@@ -88,8 +60,8 @@ You should see an output similar to this, indicating that both services are `Up`
 ```
       Name                     Command               State           Ports
 ------------------------------------------------------------------------------------
-finsight-backend    python app.py                    Up      0.0.0.0:5001->5001/tcp
-finsight-frontend   npm start                        Up      0.0.0.0:3000->3000/tcp
+finsight-backend    python app.py                      Up      0.0.0.0:5001->5001/tcp
+finsight-frontend   npm run dev                        Up      0.0.0.0:3000->3000/tcp
 ```
 
 ### Step 4: Access the Application
@@ -97,7 +69,8 @@ finsight-frontend   npm start                        Up      0.0.0.0:3000->3000/
 Your full application is now running!
 
 *   **Frontend UI**: Open your web browser and navigate to **`http://localhost:3000`**
-*   **Backend Health Check**: To verify the backend is running independently, navigate to **`http://localhost:5001/health`**. You should see a JSON response: `{"status": "ok", "message": "Backend is running!"}`.
+*   **Backend Health Check**: To verify the backend is running independently, navigate to **`http://localhost:5001/health`**. 
+*   You should see a JSON response: `{"status": "ok", "message": "Backend is running!"}`.
 
 You can now use the web interface to upload a document and get the analysis.
 

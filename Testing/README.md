@@ -1,132 +1,135 @@
-
----
-
 # Fin-Sight: AI-Powered Financial Document Analysis
 
-**Fin-Sight** is a web application designed to ingest complex financial documents and transform them into actionable insights. Users can upload reports in various formats (PDF, DOCX, XLSX), and our AI-powered backend extracts key information, performs analysis, and presents the results in a clean, user-friendly interface.
+**Fin-Sight** is a web application designed to ingest complex financial documents and transform them into actionable insights. Users can upload reports in various formats, and our AI-powered backend extracts key data, calculates financial ratios, and presents the results in a clean, interactive dashboard.
 
-This project is built for the goal of simplifying financial analysis for everyone, from companies to investors.
+This project is built to simplify financial analysis for everyone, from individual investors to large enterprises.
 
 ## ✨ Key Features
 
-*   **Multi-Format Support:** Accepts `.pdf`, `.docx`, `.xlsx`, and `.xls` files.
-*   **Advanced Text Extraction:** Intelligently extracts text while preserving table structures from documents.
-*   **OCR for Scanned PDFs:** Automatically detects and extracts text from image-based or scanned PDFs.
-*   **AI-Powered Analysis:** (In Progress) A modular backend to plug in various analysis engines (e.g., KPI extraction, sentiment analysis, summarization).
-*   **Decoupled Architecture:** A robust **Flask (Python)** backend API serves a modern **React** frontend.
-*   **Containerized Backend:** The entire Python environment is containerized with **Docker** for consistent, one-command setup.
+*   **Multi-Format Document Processing:** Accepts `.pdf`, `.docx`, `.xlsx`, `.xls` and other files for analysis.
+*   **Intelligent Data Extraction:** Utilizes OCR for scanned PDFs and preserves table structures from all document types.
+*   **Automated Financial Ratio Analysis:** The AI core automatically calculates and displays key financial ratios from the extracted data.
+*   **Interactive Dashboards:** Visualizes financial data and key metrics using chart for easy interpretation.
+*   **Modular & Scalable Architecture:** A robust **Flask (Python)** backend API serves a modern **React + Vite** frontend, with a dedicated AI module for processing.
+*   **Fully Containerized:** The entire application stack (backend, AI, and frontend) is containerized with **Docker**, ensuring a simple, one-command setup.
 
 ## 💻 Tech Stack
 
-| Area    | Technology                                                                                              |
-| :--- | :--- |
-| **Frontend** | ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) |
-| **Backend** | ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white) |
-| **DevOps** | ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white) |
+| Area         | Technology                                                                                                                                                                                                                                                        |
+| :----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Frontend** | ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)                                                  |
+| **Backend**  | ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white)                                                          |                                                                                                                                                                                                                       |
+| **DevOps**   | ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)                                                                                                                                                         |
 
 ## 📂 Project Structure
 
 ```
 Fin-Sight/Testing/
-├── backend/                # All Python code
-│   ├── app.py              # The Flask API server
-│   └── text_extractor.py   # The core text extraction module
-├── frontend/               # The React application
+├── ai/                     # Core AI and data processing modules
+│   └── ...
+├── backend/                # Flask API and file handling
+│   ├── uploads/            # Temporary storage for user-uploaded files
+│   ├── app.py              # Main Flask application entry point
+│   ├── financial_parser.py # Parses text into structured financial data
+│   └── text_extractor.py   # Extracts raw text and tables from documents
+├── frontend/               # React UI application
 │   ├── src/
+│   │   └── components/     # Reusable React components (charts, sections, etc.)
+│   ├── Dockerfile          # Container definition for the frontend service
 │   └── package.json
-├── docker-compose.yml      # Defines and runs the backend service
-├── Dockerfile              # The blueprint for the backend environment
-├── requirements.txt        # Python dependencies
+├── .gitignore
+├── docker-compose.yml      # Orchestrates all services (frontend, backend)
+├── Docker-Guide.md         # In-depth guide for the Docker setup
+├── Dockerfile              # Container definition for the backend service
+├── requirements.txt        # Python dependencies for backend & AI
 └── README.md               # You are here!
 ```
 
 ---
 
-## 🚀 How to Run the Project
+## 🚀 Getting Started
 
-This project uses a two-terminal setup. One for the Dockerized backend and one for the local React frontend.
+This project is fully containerized, making setup incredibly simple.
 
 ### Prerequisites
 
 *   [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running.
-*   [Node.js and npm](https://nodejs.org/en/) installed.
+* [Git](https://git-scm.com/) or [GitHub Desktop](https://desktop.github.com/) for cloning the repository.
 
-### Step-by-Step Instructions
 
-#### 1. Clone the Repository
+### Run with Docker (Recommended)
 
-```bash
-git clone <your-repo-url> #to be updated
-cd Fin-Sight/Testing/
-```
-
-#### 2. Run the Backend (Terminal 1)
-
-This terminal will run the Python/Flask API inside a Docker container.
+This single command will build the images for the frontend and backend, start the containers, and run the entire application.
 
 ```bash
-# Navigate to the project root
-cd /path/to/Fin-Sight/Testing/
+# 1. Clone the repository
+git clone https://github.com/your-username/fin-sight.git
+cd fin-sight/Testing/
 
-# 1. Build the Docker image (only needed the first time or after changes)
-docker-compose build
-
-# 2. Start the backend service
-docker-compose up
+# 2. Build and start all services
+docker-compose up --build
 ```
 
-Your backend is now running! You should see logs from Flask, and the API is available at `http://localhost:5001`.
+That's it!
 
-#### 3. Run the Frontend (Terminal 2)
+*   The **Frontend** will be available at `http://localhost:3000`.
+*   The **Backend API** will be running at `http://localhost:5001`.
 
-This terminal will run the React development server on your local machine.
+To stop the application, press `Ctrl + C` in the terminal, and then run `docker-compose down`.
+
+### Alternative: Local Development (for Frontend)
+
+If you are actively developing the frontend and want to leverage Vite's Hot Module Replacement (HMR), you can run the backend in Docker and the frontend locally.
+
+#### 1. Run the Backend (Terminal 1)
+
+```bash
+# From the Fin-Sight/Testing/ directory
+docker-compose up --build backend
+```
+This command starts only the backend service.
+
+#### 2. Run the Frontend (Terminal 2)
 
 ```bash
 # Navigate to the frontend directory
-cd /path/to/Fin-Sight/Testing/frontend/
+cd frontend/
 
-# 1. Install dependencies (only needed the first time)
+# Install dependencies (only needed once)
 npm install
 
-# 2. Start the React app
-npm start
+# Start the React development server
+npm run dev
 ```
-
-Your browser should automatically open to `http://localhost:3000`, where you can see the application.
+The frontend will still be available at `http://localhost:3000` and will connect to the Dockerized backend.
 
 ---
 
-## 💡 Ideas & Future Improvements
+## 💡 Roadmap & Future Improvements
 
-This project has a strong foundation. Here are some ideas for where to take it next:
+While the core functionality is in place, there are many exciting directions for this project:
 
-### Core Analysis Engine
+*   **Advanced NLP Analysis:**
+    *   **Sentiment Analysis:** Analyze the "Management Discussion & Analysis" (MD&A) section to gauge tone (optimistic, pessimistic, neutral).
+    *   **Summarization:** Use a pre-trained model (like T5 or BART) to generate a concise, executive summary of the entire document.
+*   **Enhanced Data Features:**
+    *   **Trend Analysis:** Allow users to upload multiple reports for the same company (e.g., 2023 Q3, 2023 Q4) and automatically generate trend charts.
+    *   **Comparison View:** Create a UI to place two reports side-by-side and automatically highlight the key differences.
+*   **Architecture & Scalability:**
+    *   **Asynchronous Processing:** For large documents, use a task queue like **Celery** with **Redis** to process files in the background, improving UI responsiveness.
+    *   **Vector Database:** Store document text as vector embeddings in a database like **Pinecone** or **ChromaDB** to enable powerful semantic search (e.g., "What are the main risks related to supply chain issues?").
+    *   **User Accounts:** Implement authentication to allow users to save their documents and analysis history.
+*   **Deployment:**
+    *   **Cloud Deployment:** Create scripts and configurations to easily deploy the application to a cloud provider like AWS Elastic Beanstalk or Google Cloud Run.
 
-*   **Financial KPI Extraction:** Use Regex and NLP (like spaCy) to automatically find and extract key metrics:
-    *   Total Revenue
-    *   Net Income / Loss
-    *   EBITDA
-    *   Gross Margin
-    *   Key ratios (P/E, Debt-to-Equity)
-*   **Sentiment Analysis:** Analyze the "Management Discussion & Analysis" (MD&A) section to gauge whether the tone is optimistic, pessimistic, or neutral.
-*   **Trend Analysis:** Allow users to upload multiple reports for the same company (e.g., 2023 Q3, 2023 Q4) and automatically generate charts showing trends in key metrics.
-*   **Summarization:** Use a pre-trained model (like T5 or BART) to generate a concise, executive summary of the entire document.
+## 🤝 Contributing
 
-### User Interface (UI/UX)
-
-*   **Interactive Dashboards:** Use a charting library (like Chart.js or Recharts) to visualize the extracted KPIs and trends.
-*   **Insight Highlighting:** In the UI, when displaying the raw text, highlight the specific sentences or numbers where an insight was found. This builds trust and provides context.
-*   **User Accounts & History:** Implement user authentication to allow users to save their uploaded documents and view their analysis history.
-*   **Comparison View:** Create a UI to place two reports side-by-side and automatically highlight the key differences.
-
-### Backend & Architecture
-
-*   **Asynchronous Processing:** For large documents, analysis can be slow. Use a task queue like **Celery** with **Redis** to process files in the background. The UI can poll for results, providing a much better user experience.
-*   **Vector Database for Semantic Search:** Store document text as vector embeddings in a database like **Pinecone** or **ChromaDB**. This would enable powerful semantic search features, allowing users to ask natural language questions like, "What are the main risks related to supply chain issues?"
-*   **Cloud Deployment:** Create scripts and configurations to easily deploy the application to a cloud provider like AWS Elastic Beanstalk or Google Cloud Run.
+We welcome contributions! If you have an idea for a new feature or have found a bug, please open an issue in the GitHub repository. Pull requests are also greatly appreciated.
 
 ## 👥 The Team
 
-*   [Name]
-*   [Name]
-*   [Name]
+*   Skandh Handa
+*   Shubhankar
+*   Vedika Srivastava
+*   Vanshika Gupta
+*   Yash
