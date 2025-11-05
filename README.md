@@ -69,7 +69,7 @@ This single command will build the images for the frontend and backend, start th
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/your-username/fin-sight.git
+git clone https://github.com/SkandhHanda-Sk/fin-sight.git
 
 # 2. Build and start all services
 docker-compose up --build
