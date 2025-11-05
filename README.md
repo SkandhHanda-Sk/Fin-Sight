@@ -1,5 +1,3 @@
----
-
 # Fin-Sight: AI-Powered Financial Document Analysis
 
 **Fin-Sight** is a web application designed to ingest complex financial documents and transform them into actionable insights. Users can upload reports in various formats, and our AI-powered backend extracts key data, calculates financial ratios, and presents the results in a clean, interactive dashboard.
@@ -25,7 +23,7 @@ This project is built to simplify financial analysis for everyone, from individu
 
 ## 📂 Project Structure
 
-```
+```text
 Fin-Sight/Testing/
 ├── ai/                     # Core AI and data processing modules
 │   └── ...
