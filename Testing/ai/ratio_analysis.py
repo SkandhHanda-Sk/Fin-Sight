@@ -71,3 +71,27 @@ elif avg_profitability > 20:
     print("\n💹 Overall: The company maintains **moderate profitability** with room for margin improvement.")
 else:
     print("\n💹 Overall: The company’s profitability appears **weak**, cost control or pricing strategy may need attention.")
+import matplotlib.pyplot as plt
+
+# Re-load ratio data (or keep df if already in memory)
+ratio_df = pd.read_excel("financial_ratios.xlsx")
+
+# Convert numeric columns
+for col in ratio_df.columns[1:]:
+    ratio_df[col] = pd.to_numeric(ratio_df[col], errors='coerce')
+
+# Create a bar chart for each ratio
+for _, row in ratio_df.iterrows():
+    ratio_name = row["Ratio"]
+    values = row[1:].values
+    years = ratio_df.columns[1:]
+
+    plt.figure()
+    plt.bar(years, values)
+    plt.title(f"{ratio_name} Across Years")
+    plt.xlabel("Year")
+    plt.ylabel(ratio_name)
+    plt.tight_layout()
+    plt.savefig(f"{ratio_name.replace(' ', '_')}.png")  # save each graph
+    # plt.show()  # uncomment if you want to see on screen
+
