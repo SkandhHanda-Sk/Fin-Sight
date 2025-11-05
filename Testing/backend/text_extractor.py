@@ -3,9 +3,6 @@
 Multi-Format Text Extractor (Backend Module)
 Extracts text from XLSX, XLS, PDF, and DOCX files with a focus on preserving 
 table structure and OCR support for scanned PDFs.
-
-Author: Yash
-Version: 2.2 (Refactored for Web Backend Integration & CLI)
 """
 
 import os

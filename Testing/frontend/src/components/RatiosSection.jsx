@@ -1,28 +1,40 @@
 // src/components/RatiosSection.jsx
 import React from 'react';
 
-function RatiosSection() {
-  const ratioCards = [
-    { category: 'Profitability', name: 'Net Profit Margin', value: '18.5%', status: 'Healthy', statusClass: 'status-good' },
-    { category: 'Profitability', name: 'Gross Margin', value: '42.3%', status: 'Good', statusClass: 'status-good' },
-    { category: 'Stability', name: 'Debt-to-Equity', value: '0.65', status: 'Manageable', statusClass: 'status-good' },
-    { category: 'Stability', name: 'Interest Coverage', value: '5.2x', status: 'Strong', statusClass: 'status-good' },
-    { category: 'Liquidity', name: 'Current Ratio', value: '1.8', status: 'Healthy', statusClass: 'status-good' },
-    { category: 'Liquidity', name: 'Quick Ratio', value: '1.2', status: 'Good', statusClass: 'status-good' },
-  ];
+// A helper function to determine the status class based on insight text
+const getStatusClass = (insight) => {
+  if (!insight) return 'status-neutral';
+  const lowerInsight = insight.toLowerCase();
+  if (lowerInsight.includes('healthy') || lowerInsight.includes('strong') || lowerInsight.includes('good')) {
+    return 'status-good';
+  }
+  if (lowerInsight.includes('weak') || lowerInsight.includes('poor') || lowerInsight.includes('concern')) {
+    return 'status-bad';
+  }
+  return 'status-neutral';
+};
+
+// The component now accepts 'ratios' as a prop
+function RatiosSection({ ratios }) {
+  // If no ratios are provided, don't render anything or show a message
+  if (!ratios || ratios.length === 0) {
+    return null; // Or a placeholder: <section><h2>Financial Ratios will appear here.</h2></section>
+  }
 
   return (
     <section className="ratios-section" id="features">
       <h2 className="section-title">Financial Ratios Analysis</h2>
       <div className="ratios-grid">
-        {ratioCards.map((ratio, index) => (
+        {/* Map over the 'ratios' prop instead of the hardcoded array */}
+        {ratios.map((ratio, index) => (
           <div className="ratio-card" key={index}>
-            <div className="ratio-category">{ratio.category}</div>
-            <div className="ratio-name">{ratio.name}</div>
+            {/* You might need to add a 'category' to your backend response, or remove this div */}
+            <div className="ratio-category">{ratio.category || 'Ratio'}</div>
+            <div className="ratio-name">{ratio.metric}</div>
             <div className="ratio-value">{ratio.value}</div>
             <div className="ratio-status">
-              <span className={`status-dot ${ratio.statusClass}`}></span>
-              <span>{ratio.status}</span>
+              <span className={`status-dot ${getStatusClass(ratio.insight)}`}></span>
+              <span>{ratio.insight}</span>
             </div>
           </div>
         ))}
