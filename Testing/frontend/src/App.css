@@ -1,0 +1,498 @@
+* {
+  margin: 0; /* Removes default margin from all elements */
+  padding: 0; /* Removes default padding from all elements */
+  box-sizing: border-box; /* Includes padding and border in the element's total width and height */
+}
+
+/* :root is used to declare CSS variables (custom properties) globally */
+:root {
+  /* A palette of named colors for consistent theming across the site */
+  --primary: #0F172A;
+  --primary-light: #1F3A93;
+  --accent: #06B6D4;
+  --accent-light: #3B82D6;
+  --success: #10B981;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+  --neutral-50: #F9FAFB;
+  --neutral-100: #F3F4F6;
+  --neutral-200: #E5E7EB;
+  --neutral-300: #D1D5DB;
+  --neutral-600: #4B5563;
+  --neutral-700: #374151;
+  --neutral-800: #1F2937;
+  --neutral-900: #111827;
+}
+
+/* Default styles for the entire page */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; /* Modern, cross-platform font stack */
+  background: linear-gradient(135deg, var(--primary) 0%, #1a1f3a 100%); /* A dark blue gradient background */
+  color: var(--neutral-700); /* Default text color (though much of the text is white on this dark background) */
+  line-height: 1.6; /* Sets a comfortable line spacing for text */
+  min-height: 100vh; /* Ensures the body takes up at least the full height of the viewport */
+}
+
+/* --- Navigation Bar Styles --- */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background: rgba(2, 26, 114, 0.636);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* Logo styling */
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* The "sight" part of the logo, colored with the accent color */
+.logo span {
+  color: var(--accent);
+}
+
+/* Navigation links container */
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--neutral-600);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: var(--accent);
+}
+
+/* "Get Started" button in the nav bar */
+.nav-btn {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.5rem;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: background 0.3s;
+}
+
+.nav-btn:hover {
+  background: var(--accent-light);
+}
+
+/* --- Main Content Container --- */
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* --- Hero Section (Top section with main headline) --- */
+.hero {
+  text-align: center;
+  padding: 4rem 0;
+  color: white;
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin: 2rem 0 1rem;
+  line-height: 1.2;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  color: var(--neutral-300);
+  max-width: 600px;
+  margin: 1rem auto 2rem;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+/* Primary call-to-action button style */
+.btn-primary {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s;
+}
+
+.btn-primary:hover {
+  background: var(--accent-light);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(6, 182, 212, 0.3);
+}
+
+/* Secondary button style (outlined) */
+.btn-secondary {
+  background: transparent;
+  color: var(--accent);
+  border: 2px solid var(--accent);
+  padding: 0.8rem 2rem;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s;
+}
+
+.btn-secondary:hover {
+  background: var(--accent);
+  color: white;
+}
+
+/* --- Upload Section --- */
+.upload-section {
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* The dashed box for dragging and dropping files */
+.upload-area {
+  border: 2px dashed var(--accent);
+  border-radius: 0.75rem;
+  padding: 3rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  background: var(--neutral-50);
+}
+
+/* Hover effect for the upload area */
+.upload-area:hover {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.1) 0%, rgba(59, 130, 214, 0.1) 100%);
+  border-color: var(--accent-light);
+}
+
+.upload-area h3 {
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.upload-area p {
+  color: var(--neutral-600);
+  margin-bottom: 1rem;
+}
+
+/* Container for the file format badges (PDF, CSV, etc.) */
+.file-formats {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+/* Individual badge styling */
+.format-badge {
+  background: var(--neutral-100);
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* The actual file input is hidden; it's triggered by JavaScript */
+input[type="file"] {
+  display: none;
+}
+
+/* --- Processing Workflow Section --- */
+.processing-section {
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Title for sections like "How Finsight Works" */
+.section-title {
+  font-size: 1.5rem;
+  color: var(--primary);
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+
+/* Grid container for the workflow steps */
+.workflow-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.step {
+  position: relative;
+  text-align: center;
+}
+
+/* Creates a decorative line connecting the steps */
+.step::before {
+  content: '';
+  position: absolute;
+  top: 2.5rem;
+  left: 60%;
+  width: 40%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent) 0%, transparent 100%);
+}
+
+/* The last step doesn't need a line after it */
+.step:last-child::before {
+  display: none;
+}
+
+/* The numbered circle for each step */
+.step-number {
+  width: 3rem;
+  height: 3rem;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin: 0 auto 1rem;
+}
+
+.step h4 {
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.step p {
+  color: var(--neutral-600);
+  font-size: 0.9rem;
+}
+
+/* --- Financial Ratios Section --- */
+.ratios-section {
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Grid container for the ratio cards */
+.ratios-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Individual card for displaying a financial ratio */
+.ratio-card {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border: 1px solid var(--neutral-200);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  transition: all 0.3s;
+}
+
+/* Hover effect for the ratio card */
+.ratio-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 5px 20px rgba(6, 182, 212, 0.1);
+}
+
+/* "Profitability", "Stability", etc. */
+.ratio-category {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+}
+
+/* "Net Profit Margin", "Debt-to-Equity", etc. */
+.ratio-name {
+  font-size: 0.95rem;
+  color: var(--primary);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+/* The actual value, e.g., "18.5%" */
+.ratio-value {
+  font-size: 1.75rem;
+  color: var(--primary);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+/* Container for the status dot and text (e.g., "Healthy") */
+.ratio-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--neutral-600);
+}
+
+/* The small colored dot */
+.status-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+}
+
+/* Green dot for good status */
+.status-good {
+  background: var(--success);
+}
+
+/* Orange dot for warning status */
+.status-warning {
+  background: var(--warning);
+}
+
+/* --- AI Insights Section --- */
+.insights-section {
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Grid for Strengths, Weaknesses, Recommendations */
+.insights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+/* A card containing a list of insights (e.g., Strengths) */
+.insight-card {
+  border-left: 4px solid var(--accent);
+  padding-left: 1.5rem;
+}
+
+.insight-card h4 {
+  /* "Strengths", "Weaknesses", etc. */
+  color: var(--primary);
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.insight-item {
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--neutral-200);
+}
+
+.insight-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+/* Title of a single insight */
+.insight-title {
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 0.3rem;
+}
+
+/* Description of a single insight */
+.insight-desc {
+  color: var(--neutral-600);
+  font-size: 0.9rem;
+}
+
+/* --- Footer --- */
+footer {
+  background: var(--primary);
+  color: white;
+  text-align: center;
+  padding: 2rem;
+  margin-top: 3rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+footer p {
+  margin-bottom: 0.5rem;
+}
+
+footer a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* --- Responsive Design for Mobile --- */
+/* This @media rule applies styles only when the screen width is 768px or less */
+@media (max-width: 768px) {
+  .hero h1 {
+      font-size: 2rem;
+  }
+
+  .hero p {
+      font-size: 1rem;
+  }
+
+  /* Stack the hero buttons vertically on small screens */
+  .hero-buttons {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .nav-links {
+      gap: 1rem;
+      font-size: 0.9rem;
+  }
+
+  /* Make the workflow steps a single column */
+  .workflow-steps {
+      grid-template-columns: 1fr;
+  }
+
+  .step::before {
+      display: none;
+  }
+
+  main {
+      /* Reduce side padding on mobile */
+      padding: 0 1rem;
+  }
+}
