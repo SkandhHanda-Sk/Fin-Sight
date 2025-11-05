@@ -24,7 +24,7 @@ This project is built to simplify financial analysis for everyone, from individu
 ## 📂 Project Structure
 
 ```text
-Fin-Sight/Testing/
+Fin-Sight/
 ├── ai/                     # Core AI and data processing modules
 │   └── ...
 ├── backend/                # Flask API and file handling
@@ -70,7 +70,6 @@ This single command will build the images for the frontend and backend, start th
 ```bash
 # 1. Clone the repository
 git clone https://github.com/your-username/fin-sight.git
-cd fin-sight/Testing/
 
 # 2. Build and start all services
 docker-compose up --build
@@ -90,7 +89,7 @@ If you are actively developing the frontend and want to leverage Vite's Hot Modu
 #### 1. Run the Backend (Terminal 1)
 
 ```bash
-# From the Fin-Sight/Testing/ directory
+# From the Fin-Sight/ directory
 docker-compose up --build backend
 ```
 This command starts only the backend service.
