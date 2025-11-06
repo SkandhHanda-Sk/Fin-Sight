@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
 Multi-Format Text Extractor (Backend Module)
-Extracts text from XLSX, XLS, PDF, and DOCX files with a focus on preserving 
-table structure and OCR support for scanned PDFs.
+Extracts text from XLSX, XLS, PDF, DOCX, CSV, PNG, and JPEG files with a 
+focus on preserving table structure and OCR support for scanned documents/images.
 """
 
 import os
@@ -25,11 +25,15 @@ logging.basicConfig(
 # --- Configuration Constants ---
 TABLE_SEPARATOR = "\t"
 OCR_RESOLUTION = 300
+# --- MODIFIED: Added new MIME types ---
 MIME_TYPE_MAP = {
     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': '.xlsx',
     'application/vnd.ms-excel': '.xls',
     'application/pdf': '.pdf',
     'application/vnd.openxmlformats-officedocument.wordprocessingml.document': '.docx',
+    'text/csv': '.csv',
+    'image/jpeg': '.jpeg',
+    'image/png': '.png',
 }
 
 class ExtractionError(Exception):
@@ -42,11 +46,16 @@ class TextExtractor:
     Designed for backend processing with security and robustness in mind.
     """
     def __init__(self):
+        # --- MODIFIED: Added new extractors ---
         self.extractors: Dict[str, Callable[[str], str]] = {
             '.xlsx': self._extract_from_excel,
             '.xls': self._extract_from_excel,
             '.pdf': self._extract_from_pdf,
             '.docx': self._extract_from_docx,
+            '.csv': self._extract_from_csv,
+            '.jpeg': self._extract_from_image,
+            '.jpg': self._extract_from_image, # Support both .jpeg and .jpg
+            '.png': self._extract_from_image,
         }
         self.supported_mime_types: Set[str] = set(MIME_TYPE_MAP.keys())
 
@@ -56,6 +65,9 @@ class TextExtractor:
             mime_type = magic.from_file(file_path, mime=True)
             if mime_type in self.supported_mime_types:
                 return MIME_TYPE_MAP[mime_type]
+            # Handle common case where text/plain is returned for CSV
+            if mime_type == 'text/plain' and file_path.lower().endswith('.csv'):
+                return '.csv'
             return ""
         except Exception as e:
             logging.error(f"Could not determine MIME type for {file_path}: {e}")
@@ -78,6 +90,23 @@ class TextExtractor:
             return "\n".join(text_parts)
         except Exception as e:
             raise ExtractionError(f"Failed to process Excel file {os.path.basename(file_path)}.") from e
+
+    # --- NEW: CSV Extraction Method ---
+    def _extract_from_csv(self, file_path: str) -> str:
+        """Extract text from CSV files, preserving row structure."""
+        try:
+            df = pd.read_csv(file_path, header=None)
+            if df.empty:
+                return ""
+            
+            text_parts = []
+            for _, row in df.iterrows():
+                row_text = [str(cell).strip().replace('\n', ' ') for cell in row if pd.notna(cell)]
+                if row_text:
+                    text_parts.append(TABLE_SEPARATOR.join(row_text))
+            return "\n".join(text_parts)
+        except Exception as e:
+            raise ExtractionError(f"Failed to process CSV file {os.path.basename(file_path)}.") from e
 
     def _extract_from_pdf(self, file_path: str) -> str:
         """Extract text and tables from PDF files, with an OCR fallback."""
@@ -140,6 +169,16 @@ class TextExtractor:
         except Exception as e:
             raise ExtractionError(f"Failed to process DOCX file {os.path.basename(file_path)}.") from e
 
+    # --- NEW: Image OCR Extraction Method ---
+    def _extract_from_image(self, file_path: str) -> str:
+        """Extract text from image files using OCR."""
+        try:
+            logging.info(f"Performing OCR on image file {os.path.basename(file_path)}...")
+            text = pytesseract.image_to_string(Image.open(file_path))
+            return text
+        except Exception as e:
+            raise ExtractionError(f"Failed to perform OCR on image file {os.path.basename(file_path)}.") from e
+
     def extract_text(self, file_path: str) -> str:
         """Main public method. Validates and extracts text from a supported file."""
         if not os.path.exists(file_path):
@@ -153,7 +192,8 @@ class TextExtractor:
 
         extractor_func = self.extractors.get(file_format)
         if not extractor_func:
-            return f"[Error: Unsupported file format. Please upload a XLSX, XLS, PDF, or DOCX file.]"
+            # --- MODIFIED: Updated error message ---
+            return "[Error: Unsupported file format. Please upload a XLSX, XLS, PDF, DOCX, CSV, PNG, or JPG/JPEG file.]"
 
         logging.info(f"Extracting text from '{os.path.basename(file_path)}' using {file_format} extractor...")
         try:
